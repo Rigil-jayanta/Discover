@@ -1,0 +1,423 @@
+﻿@model IEnumerable<Demoapp1.Models.Budget_Custom_Report1>
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.table2excel.js"></script>
+@*<script src="~/Scripts/jquery-latest.min.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+       
+        $("#ExcelClick").click(function (e) {
+
+//            var nVer = navigator.appVersion;
+//            var nAgt = navigator.userAgent;
+//            var browserName = navigator.appName;
+//            var fullVersion = '' + parseFloat(navigator.appVersion);
+//            var majorVersion = parseInt(navigator.appVersion, 10);
+//            var nameOffset, verOffset, ix;
+
+//            // In Opera 15+, the true version is after "OPR/" 
+//            if ((verOffset = nAgt.indexOf("OPR/")) != -1) {
+//                browserName = "Opera";
+//                fullVersion = nAgt.substring(verOffset + 4);
+//            }
+//                // In older Opera, the true version is after "Opera" or after "Version"
+//            else if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+//                browserName = "Opera";
+//                fullVersion = nAgt.substring(verOffset + 6);
+//                if ((verOffset = nAgt.indexOf("Version")) != -1)
+//                    fullVersion = nAgt.substring(verOffset + 8);
+//            }
+//                // In MSIE, the true version is after "MSIE" in userAgent
+//            else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+//                browserName = "Microsoft Internet Explorer";
+//                fullVersion = nAgt.substring(verOffset + 5);
+//            }
+//                // In Chrome, the true version is after "Chrome" 
+//            else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+//                browserName = "Chrome";
+//                fullVersion = nAgt.substring(verOffset + 7);
+//            }
+//                // In Safari, the true version is after "Safari" or after "Version" 
+//            else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+//                browserName = "Safari";
+//                fullVersion = nAgt.substring(verOffset + 7);
+//                if ((verOffset = nAgt.indexOf("Version")) != -1)
+//                    fullVersion = nAgt.substring(verOffset + 8);
+//            }
+//                // In Firefox, the true version is after "Firefox" 
+//            else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+//                browserName = "Firefox";
+//                fullVersion = nAgt.substring(verOffset + 8);
+//            }
+//                // In most other browsers, "name/version" is at the end of userAgent 
+//            else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+//                      (verOffset = nAgt.lastIndexOf('/'))) {
+//                browserName = nAgt.substring(nameOffset, verOffset);
+//                fullVersion = nAgt.substring(verOffset + 1);
+//                if (browserName.toLowerCase() == browserName.toUpperCase()) {
+//                    browserName = navigator.appName;
+//                }
+//            }
+//            // trim the fullVersion string at semicolon/space if present
+//            if ((ix = fullVersion.indexOf(";")) != -1)
+//                fullVersion = fullVersion.substring(0, ix);
+//            if ((ix = fullVersion.indexOf(" ")) != -1)
+//                fullVersion = fullVersion.substring(0, ix);
+
+//            majorVersion = parseInt('' + fullVersion, 10);
+//            if (isNaN(majorVersion)) {
+//                fullVersion = '' + parseFloat(navigator.appVersion);
+//                majorVersion = parseInt(navigator.appVersion, 10);
+//            }
+
+//            document.write(''
+//             + 'Browser name  = ' + browserName + '<br>'
+//             + 'Full version  = ' + fullVersion + '<br>'
+//             + 'Major version = ' + majorVersion + '<br>'
+//             + 'navigator.appName = ' + navigator.appName + '<br>'
+//             + 'navigator.userAgent = ' + navigator.userAgent + '<br>'
+//            )
+
+//            alert(navigator.appName);
+//return
+
+
+            var id = $('[id$="' + TestDiv + '"]');
+            var strCopy = $('<div></div>').html(id.clone()).html();
+            window.clipboardData.setData("Text", strCopy);
+            alert("1");
+            var objExcel = new ActiveXObject("Excel.Application");
+            alert("2");
+            objExcel.visible = false;
+            var objWorkbook = objExcel.Workbooks.Add;
+            var objWorksheet = objWorkbook.Worksheets(1);
+            objWorksheet.Paste;
+            objExcel.visible = true;
+
+            return
+
+
+
+         
+            //$.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
+            //$.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase());
+            //$.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+          
+
+            if ($.browser.chrome) {
+                //getting values of current time for generating the file name
+                var dt = new Date();
+                var day = dt.getDate();
+                var month = dt.getMonth() + 1;
+                var year = dt.getFullYear();
+                var hour = dt.getHours();
+                var mins = dt.getMinutes();
+                var postfix = day + "." + month + "." + year + "_" + hour + "." + mins;
+                //creating a temporary HTML link element (they support setting file names)
+                var a = document.createElement('a');
+                //getting data from our div that contains the HTML table
+                var data_type = 'data:application/vnd.ms-excel';
+                var table_div = document.getElementById('TestDiv');
+                var table_html = table_div.outerHTML.replace(/ /g, '%20');
+                a.href = data_type + ', ' + table_html;
+                //setting the file name
+                a.download = 'Budget_Report.xls';
+                //triggering the function
+                a.click();
+                //just in case, prevent default behaviour
+                e.preventDefault();
+            } else if ($.browser.mozilla) {
+                    $("#BudgetTable").table2excel({
+                        name: "Budget_Report"
+                        });
+              
+            } else if ($.browser.msie) {
+                
+            }
+            
+        });
+    });
+
+</script>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Test</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <button id="ExcelClick">Click to generate Excel Report</button>
+    
+
+    <div id="TestDiv">
+        <table border="1" id="BudgetTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BudgetId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SU)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgramName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZoomCode_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZoomCode_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Requirement_Pay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Q1_RequirementNonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Q1_Requirement_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Q1_Requirement_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Q1_Requirement_TOTAL_Q1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_ROY_Allowances_Pay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_ROY_Allowances_NonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_ROY_Allowances_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_ROY_Allowances_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_ROY_Allowances_TOTAL_ROY)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Allowances_Pay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Allowances_NonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Allowances_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Allowances_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY15_Allowances_TOTAL_FY)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_Allowances_NonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_Allowances_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_Allowances_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_Allowances_ORB_83M_Cut)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Diff_btw_FY15_FY16_NonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Diff_btw_FY15_FY16_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Diff_btw_FY15_FY16_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ORB_Deliberation_Mission_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Percent_Change)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suggested_Adjusments_before_DL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suggested_Adjusments_before_DL_keep_it_to_FY15)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY17_Requests_NonPayORB_Fixed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY17_Requests_NonPayORB_Critical)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY17_Requests_NonPayORB_Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY17_Requests_Diff)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY17_Requests_Diff_pc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_DL_Quartiles_and_Scores_Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_DL_Quartiles_and_Scores_Quartile)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_DL_Quartiles_and_Scores_FY16_MC_Qtl_Allocation)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FY16_MC_Qtl_Cut)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BudgetId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SU)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProgramName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZoomCode_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZoomCode_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Requirement_Pay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Q1_RequirementNonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Q1_Requirement_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Q1_Requirement_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Q1_Requirement_TOTAL_Q1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_ROY_Allowances_Pay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_ROY_Allowances_NonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_ROY_Allowances_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_ROY_Allowances_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_ROY_Allowances_TOTAL_ROY)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Allowances_Pay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Allowances_NonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Allowances_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Allowances_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY15_Allowances_TOTAL_FY)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_Allowances_NonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_Allowances_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_Allowances_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_Allowances_ORB_83M_Cut)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Diff_btw_FY15_FY16_NonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Diff_btw_FY15_FY16_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Diff_btw_FY15_FY16_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ORB_Deliberation_Mission_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Percent_Change)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suggested_Adjusments_before_DL)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suggested_Adjusments_before_DL_keep_it_to_FY15)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY17_Requests_NonPayORB_Fixed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY17_Requests_NonPayORB_Critical)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY17_Requests_NonPayORB_Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY17_Requests_Diff)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY17_Requests_Diff_pc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_DL_Quartiles_and_Scores_Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_DL_Quartiles_and_Scores_Quartile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_DL_Quartiles_and_Scores_FY16_MC_Qtl_Allocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FY16_MC_Qtl_Cut)
+                    </td>
+                    <td></td>
+                </tr>
+    }
+
+        </table>
+    </div>
+</body>
+</html>

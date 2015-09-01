@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.375, 8.5" name="iViewsDB">
+  <DataContextMoniker Name="/iViewsDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f3e76de8-2dee-419d-b21b-66d8a3076857" absoluteBounds="9.125, 1.375, 2, 3.6939111328124996">
+      <DataClassMoniker Name="/iViewsDBDataContext/vw_Budget_Report" />
+      <nestedChildShapes>
+        <elementListCompartment Id="373ae4b4-befc-44b5-bfc7-2cfaa6662e9c" absoluteBounds="9.14, 1.835, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4c777363-3a10-423b-b7f1-b1c4d5ed74c7" absoluteBounds="1.625, 1.375, 2, 5.2323225911458326">
+      <DataClassMoniker Name="/iViewsDBDataContext/Budget" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ca499b36-906c-4942-8f63-acd28758f305" absoluteBounds="1.6400000000000001, 1.835, 1.9700000000000002, 4.672322591145833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4ef02683-a1e9-4652-9214-56b7d0b45e27" absoluteBounds="4.125, 0.75, 2, 7.1553369140625">
+      <DataClassMoniker Name="/iViewsDBDataContext/BudgetItem" />
+      <nestedChildShapes>
+        <elementListCompartment Id="444211f0-910d-49b2-9785-3ad56fd5fe20" absoluteBounds="4.14, 1.21, 1.9700000000000002, 6.5953369140625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 3.99116129557292); (4.125 : 3.99116129557292)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/iViewsDBDataContext/Budget/Budget_BudgetItem" />
+      <nodes>
+        <classShapeMoniker Id="4c777363-3a10-423b-b7f1-b1c4d5ed74c7" />
+        <classShapeMoniker Id="4ef02683-a1e9-4652-9214-56b7d0b45e27" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3a0fdf03-ddff-42db-a4a4-a691b36ec45d" absoluteBounds="6.5, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/iViewsDBDataContext/BudgetDetail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="37019aee-ccac-4a9f-b56d-6933cbeb31d9" absoluteBounds="6.515, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.625 : 2.65182864778646); (3.875 : 2.65182864778646); (3.875 : 0.5); (7.5 : 0.5); (7.5 : 0.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/iViewsDBDataContext/Budget/Budget_BudgetDetail" />
+      <nodes>
+        <classShapeMoniker Id="4c777363-3a10-423b-b7f1-b1c4d5ed74c7" />
+        <classShapeMoniker Id="3a0fdf03-ddff-42db-a4a4-a691b36ec45d" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

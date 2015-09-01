@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iViews" Class="iViewsDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=iViews;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="iViewsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.vw_Budget_Report" Member="vw_Budget_Reports">
+    <Type Name="vw_Budget_Report">
+      <Column Name="SU" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="WBName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Year" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BIRID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProgramName" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="BFTId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ExpenseTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExpenseType" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MetaDataId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OtherData" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="OtherDataValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BIExpType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Budget" Member="Budgets">
+    <Type Name="Budget">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UniqueCode" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Code" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BudgetVersionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrganizationUnitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FundTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CostCenterId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoutingCodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Initiative" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Priority" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FedEmployeeCount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="ContractorCount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Impact" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AddtionalNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OldId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Budget_BudgetItem" Member="BudgetItems" ThisKey="Id" OtherKey="BudgetId" Type="BudgetItem" />
+      <Association Name="Budget_BudgetDetail" Member="BudgetDetails" ThisKey="Id" OtherKey="BudgetId" Type="BudgetDetail" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BudgetItem" Member="BudgetItems">
+    <Type Name="BudgetItem">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OCCId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ContractTaskOrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectTaskCodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExpenseTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Funded" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ExternalFunding" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FundingPOPStart" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FundingPOPEnd" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ContractorCount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="FTECount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="SiteLocation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DutyLocation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UpdatedBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UpdatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OldId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProjectId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FundTypeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CostCenterId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RoutingCodeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Impact" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BLI" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AssociatedContractFee" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FeeAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SupportedLOB" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ForwardFundingEstimate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Budget_BudgetItem" Member="Budget" ThisKey="BudgetId" OtherKey="Id" Type="Budget" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BudgetDetail" Member="BudgetDetails">
+    <Type Name="BudgetDetail">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BudgetId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OMBId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StrategyId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProposedOMBId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BudgetItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BusinessPlanInitiativeId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Budget_BudgetDetail" Member="Budget" ThisKey="BudgetId" OtherKey="Id" Type="Budget" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+</Database>
